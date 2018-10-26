@@ -6,9 +6,6 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
             <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'Charts' | translate }}
         </a>
-        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/tables']">
-            <mat-icon class="sidenav-icon">table_chart</mat-icon> {{ 'Tables' | translate }}
-        </a>
         <div class="nested-menu">
             <a mat-list-item (click)="addExpandClass('pages')">
                 <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Menu' | translate }}
