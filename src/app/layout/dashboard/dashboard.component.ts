@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatTable } from '@angular/material';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsersService } from 'src/app/users.service';
+
 
 export interface PeriodicElement {
     name: string;
@@ -8,7 +11,7 @@ export interface PeriodicElement {
     symbol: string;
 }
 
-const ELEMENT_DATA: PeriodicElement[] = [
+let ELEMENT_DATA: PeriodicElement[] = [
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
     { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
     { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
@@ -24,9 +27,42 @@ const ELEMENT_DATA: PeriodicElement[] = [
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    @ViewChild(MatTable) table: MatTable<any>;
+    count = 7;
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
+
+    hello() {
+        alert('New Row Added.');
+        this.count += 1;
+        this.dataSource.data.push({name:'Abc', position: this.count,weight: 1,symbol: 'string' });
+        this.table.renderRows();
+    }
+
+    // form
+    testForm = new FormGroup({
+        name: new FormControl('', Validators.required),
+        class: new FormControl('')
+    });
+
+    get name(){
+        return this.testForm.get('name');
+    }
+
+    get class(){
+        return this.testForm.get('class');
+    }
+
+    onSubmit(formValues) {
+        if(formValues.status==='VALID'){
+            alert('Valid Form')
+            console.log('Form Values', formValues.value.class)
+        }else{
+            alert('Invalid Form');
+        }
+        console.log('formValues', formValues);
+    }
 
     applyFilter(filterValue: string) {
         filterValue = filterValue.trim(); // Remove whitespace
@@ -34,7 +70,16 @@ export class DashboardComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-    constructor() {
+    getData(id) {
+        alert('getting data for id: '+id);
+        let userObj = this.user.getUserData(id);
+        this.testForm.setValue(userObj);
+    }
+    constructor(public user: UsersService) {
+        // this.testForm.setValue({
+        //     name: 'Aditya',
+        //     class: '4'
+        // });
         this.places = [
             {
                 imgSrc: 'assets/images/card-1.jpg',
@@ -62,6 +107,6 @@ export class DashboardComponent implements OnInit {
             }
         ];
     }
-
-    ngOnInit() {}
+    ngOnInit() {
+    }
 }

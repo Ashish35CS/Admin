@@ -13,6 +13,25 @@
     </div>
 </div>
 
+<hr>
+<button type="button" class="btn btn-warn" (click)="getData(4)">Get Data</button>
+<form [formGroup] = 'testForm' (ngSubmit)="onSubmit(testForm)">
+    <label for="name" style="width: 5rem;">Name</label>
+    <input type="text" name="name" formControlName="name" required><br>
+    <div *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)" class="alert alert-danger">
+        <div *ngIf="testForm.get('name').errors.required">
+            Name is mandatory.
+        </div>
+    </div>
+    <label for="class" style="width: 5rem;">Class</label>
+    <input type="text" name="class" id="class" formControlName="class"><br><br>
+    <button type="submit" [disabled]="!testForm.valid" class="btn btn-primary">Submit</button>
+</form>
+<br>
+<br>
+<hr>
+<button mat-button (click)="hello()">Click me!</button>
+
 <div class="mb-20" flFlex flexLayout="row" flexLayout.lt-md="column">
     <div fxFlex>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
