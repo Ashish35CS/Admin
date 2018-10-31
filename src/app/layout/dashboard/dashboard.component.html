@@ -15,41 +15,59 @@
 
 <hr>
 <button type="button" class="btn btn-warn" (click)="getData(4)">Get Data</button>
+<br>
+<br>
+<hr>
+<!--NEW FORM-->
 <form [formGroup]='testForm' (ngSubmit)="onSubmit(testForm)">
-    <div class="input-group mb-3" style="width: 40rem;">
-        <div class="input-group-prepend">
-            <span for="name" class="input-group-text" id="basic-addon1">Product Name</span>
+
+    <div class="form-group row">
+        <label for="productName" class="col-sm-2 col-form-label">Product Name</label>
+        <div class="col-sm-10 col-md-5 col-lg-5">
+            <input type="text" class="form-control" id="inputEmail3" placeholder="Product Name" name="name"
+                formControlName="name" required>
         </div>
-        <input type="text" class="form-control" placeholder="Product Name" name="name" formControlName="name" required>
-        <div  *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)"  >
-            <div class="alert alert-danger" *ngIf="testForm.get('name').errors.required">
-                Name is mandatory.
+        <div class="col-sm-12 col-md-5 col-lg-5">
+            <div *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)">
+                <div class="validation-alert alert alert-danger" *ngIf="testForm.get('name').errors.required">
+                    Name is mandatory.
+                </div>
             </div>
         </div>
     </div>
-    <div class="input-group mb-3" style="width: 40rem;">
-        <div class="input-group-prepend">
-            <span for="PType" class="input-group-text" id="basic-addon2">Product Type</span>
+
+    <div class="form-group row">
+        <label for="productType" class="col-sm-2 col-form-label">Product Type</label>
+        <div class="col-sm-10 col-md-5 col-lg-5">
+            <input type="text" class="form-control" id="inputPassword3" placeholder="Product Type" name="PType"
+                formControlName="PType" required>
         </div>
-        <input  style="width: 20rem;" type="text" class="form-control" placeholder="Product Type"   name="PType" formControlName="PType" required>
-        <div *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)" >
-                <div  class="alert alert-danger" *ngIf="testForm.get('name').errors.required">
-                    Type is mandatory.
+        <div class="col-sm-12 col-md-5 col-lg-5">
+                <div *ngIf="testForm.get('PType').hasError('required') && (testForm.get('PType').dirty || testForm.get('PType').touched)">
+                    <div class="validation-alert alert alert-danger" *ngIf="testForm.get('PType').errors.required">
+                        Product Type is mandatory.
+                    </div>
                 </div>
             </div>
     </div>
-    <div class="input-group mb-3" style="width: 40rem;">
-            <div class="input-group-prepend">
-                <span for="Price" class="input-group-text" id="basic-addon2">Product Price</span>
-            </div>
-            <input type="text" class="form-control" placeholder="Product Price"   name="Price" formControlName="Price" required>
-        </div>
 
-   <br><br>
+    <div class="form-group row">
+        <label for="productType" class="col-sm-2 col-form-label">Product Price</label>
+        <div class="col-sm-10 col-md-5 col-lg-5">
+            <input type="text" class="form-control" id="inputPassword3" placeholder="Product Price" name="Price"
+                formControlName="Price" required>
+        </div>
+        <div class="col-sm-12 col-md-5 col-lg-5">
+                <div *ngIf="testForm.get('Price').hasError('required') && (testForm.get('Price').dirty || testForm.get('Price').touched)">
+                    <div class="validation-alert alert alert-danger" *ngIf="testForm.get('Price').errors.required">
+                        Price is mandatory.
+                    </div>
+                </div>
+            </div>
+    </div>
+    <br><br>
     <button type="submit" [disabled]="!testForm.valid" class="btn btn-primary">Submit</button>
 </form>
-<br>
-<br>
 <hr>
 <button mat-button (click)="hello()">Click me!</button>
 
