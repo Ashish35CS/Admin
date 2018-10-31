@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatTable } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/users.service';
+import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
 
 
 export interface PeriodicElement {
     name: string;
     position: number;
-    weight: number;
+    weight: any;
     symbol: string;
 }
 
@@ -33,17 +34,19 @@ export class DashboardComponent implements OnInit {
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
 
-    hello() {
+    hello(formValues) {
         alert('New Row Added.');
         this.count += 1;
-        this.dataSource.data.push({name:'Abc', position: this.count,weight: 1,symbol: 'string' });
+        console.log(formValues);
+        this.dataSource.data.push({name:formValues.value.name , position: this.count,weight: formValues.value.PType,symbol: formValues.value.Price });
         this.table.renderRows();
     }
 
     // form
     testForm = new FormGroup({
         name: new FormControl('', Validators.required),
-        class: new FormControl('')
+        PType: new FormControl(''),
+        Price: new FormControl('')
     });
 
     get name(){
@@ -58,6 +61,8 @@ export class DashboardComponent implements OnInit {
         if(formValues.status==='VALID'){
             alert('Valid Form')
             console.log('Form Values', formValues.value.class)
+            let tempval=formValues;
+            this.hello(tempval);
         }else{
             alert('Invalid Form');
         }

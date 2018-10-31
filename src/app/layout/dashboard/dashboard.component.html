@@ -15,16 +15,37 @@
 
 <hr>
 <button type="button" class="btn btn-warn" (click)="getData(4)">Get Data</button>
-<form [formGroup] = 'testForm' (ngSubmit)="onSubmit(testForm)">
-    <label for="name" style="width: 5rem;">Name</label>
-    <input type="text" name="name" formControlName="name" required><br>
-    <div *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)" class="alert alert-danger">
-        <div *ngIf="testForm.get('name').errors.required">
-            Name is mandatory.
+<form [formGroup]='testForm' (ngSubmit)="onSubmit(testForm)">
+    <div class="input-group mb-3" style="width: 40rem;">
+        <div class="input-group-prepend">
+            <span for="name" class="input-group-text" id="basic-addon1">Product Name</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Product Name" name="name" formControlName="name" required>
+        <div  *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)"  >
+            <div class="alert alert-danger" *ngIf="testForm.get('name').errors.required">
+                Name is mandatory.
+            </div>
         </div>
     </div>
-    <label for="class" style="width: 5rem;">Class</label>
-    <input type="text" name="class" id="class" formControlName="class"><br><br>
+    <div class="input-group mb-3" style="width: 40rem;">
+        <div class="input-group-prepend">
+            <span for="PType" class="input-group-text" id="basic-addon2">Product Type</span>
+        </div>
+        <input  style="width: 20rem;" type="text" class="form-control" placeholder="Product Type"   name="PType" formControlName="PType" required>
+        <div *ngIf="testForm.get('name').hasError('required') && (testForm.get('name').dirty || testForm.get('name').touched)" >
+                <div  class="alert alert-danger" *ngIf="testForm.get('name').errors.required">
+                    Type is mandatory.
+                </div>
+            </div>
+    </div>
+    <div class="input-group mb-3" style="width: 40rem;">
+            <div class="input-group-prepend">
+                <span for="Price" class="input-group-text" id="basic-addon2">Product Price</span>
+            </div>
+            <input type="text" class="form-control" placeholder="Product Price"   name="Price" formControlName="Price" required>
+        </div>
+
+   <br><br>
     <button type="submit" [disabled]="!testForm.valid" class="btn btn-primary">Submit</button>
 </form>
 <br>
