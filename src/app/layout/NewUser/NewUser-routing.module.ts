@@ -5,6 +5,7 @@ import { NewUserComponent } from './NewUser.component';
 const routes: Routes = [
     {
         path: '',
+        
         component: NewUserComponent
     }
 ];
