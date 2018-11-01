@@ -28,6 +28,7 @@ let ELEMENT_DATA: PeriodicElement[] = [
     styleUrls: ['./NewUser.component.scss']
 })
 export class NewUserComponent implements OnInit {
+    isThisValid = false;
     @ViewChild(MatTable) table: MatTable<any>;
     count = 7;
     displayedColumns = ['position', 'name', 'weight', 'symbol'];

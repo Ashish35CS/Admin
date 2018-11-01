@@ -2,11 +2,12 @@
     <div class="form-row">
         <div class="col-md-4 mb-3">
             <label for="validationServer01">First name</label>
-            <input type="text" ng-class="{correct: form-control is-valid, invalid:form-control is-valid}" id="validationServer01" placeholder="First name" value="Mark"
+            
+            <input type="text" [className]="UserForm.get('name').touched? 'form-control is-valid':'form-control is-invalid' "  id="validationServer01" placeholder="First name" value="Mark"
                 formControlName="name" required>
             <div  *ngIf="UserForm.get('name').touched">
                 <div>
-                    Name is mandatory. (apply "invalid:form-control is-valid" class)
+                    Name is mandatory.
                 </div>
             </div>
         </div>

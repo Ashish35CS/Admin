@@ -21,6 +21,13 @@ table {
     padding: 0.35rem;
 }
 
+.active{
+    border: 1rem solid green;
+}
+
+.inactive{
+    background: red;
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
