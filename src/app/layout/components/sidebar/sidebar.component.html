@@ -6,7 +6,10 @@
         <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/charts']">
             <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'Charts' | translate }}
         </a>
-        <div class="nested-menu">
+        <a mat-list-item [routerLinkActive]="'active'" [routerLink]="['/newUser']">
+            <mat-icon class="sidenav-icon">bar_chart</mat-icon> {{ 'New User' | translate }}
+        </a>
+        <!-- <div class="nested-menu">
             <a mat-list-item (click)="addExpandClass('pages')">
                 <mat-icon class="sidenav-icon">add</mat-icon> {{ 'Menu' | translate }}
             </a>
@@ -21,6 +24,6 @@
                     <a href="javascript:void(0)"><span>{{ 'Submenu' | translate }}</span></a>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </mat-nav-list>
 </div>

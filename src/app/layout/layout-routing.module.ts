@@ -17,6 +17,10 @@ const routes: Routes = [
                 loadChildren: './dashboard/dashboard.module#DashboardModule'
             },
             {
+                path: 'newUser',
+                loadChildren: './NewUser/NewUser.module#NewUserModule'
+            },
+            {
                 path: 'charts',
                 loadChildren: './charts/charts.module#ChartsModule'
             },
