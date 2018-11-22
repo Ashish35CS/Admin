@@ -1,0 +1,18 @@
+[
+    {
+      "imgSrc": "assets/images/card-1.jpg",
+      "place": "Cozy 5 Stars Apartment",
+      "description":
+        "The place is tatti to Barceloneta Beach and bus stop just 2 min by walk and near to Naviglio where you can enjoy the main night life in Barcelona.",
+      "charge": "$899/night",
+      "location": "Barcelona, Spain"
+    },
+    {
+        "imgSrc": "assets/images/card-3.jpg",
+        "place": "Cozy 5 Stars Apartment",
+        "description":
+          "The place is tatti to Barceloneta Beach and bus stop just 2 min by walk and near to Naviglio where you can enjoy the main night life in Barcelona.",
+        "charge": "$899/night",
+        "location": "Barcelona, Spain"
+      }
+  ]

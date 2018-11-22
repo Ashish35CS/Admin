@@ -3,7 +3,7 @@ import { MatTableDataSource, MatTable } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/users.service';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
-import { GetProductService } from 'src/app/get-product.service';
+import { GetProductService } from 'src/app/shared/services/mydata/get-product.service';
 
 
 
@@ -83,10 +83,14 @@ calc=0;
         this.testForm.setValue(userObj);
     }*/
     sum: number = 0;
-    constructor(calc:GetProductService) {
-        this.sum = calc.add(1,2,3,4);
-       // this.places =calc.showplaces(5);
+    fetchData() {
+        this.getProductData.showplaces().subscribe((data: Array<any>) => {
+            this.places = data;
+        });
+    }
+    constructor(private getProductData :GetProductService) {
     }
     ngOnInit() {
+        this.fetchData();
     }
 }

@@ -69,3 +69,54 @@
     </div>
     <button class="btn btn-primary" type="submit">Submit form</button>
 </form>
+<hr>
+<br>
+<br>
+<hr>
+
+<div class="container-fluid">
+    <div class="row no-gutters">
+        <br>
+        <div class="col-md-6 col-lg-6 center">
+            <h4>Add Note:</h4>
+            <br>
+            <form [formGroup]="notesForm" (ngSubmit)="onuSubmitNotesForm();">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter Title" formControlName="title">
+                </div>
+                <br>
+                <div class="form-group">
+                        <label for="content">Content</label>
+                        <input type="text" class="form-control" id="content" aria-describedby="contentHelp" placeholder="Enter Content" formControlName="content">
+                </div>
+                <button type="submit" class="btn btn-primary" (onClick)="onuSubmitNotesForm();">Submit</button>
+            </form>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="col-md-12">
+            <table class="table">
+                <thead class="thead-dark">
+                <th>Title</th>
+                <th>Content</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let note of notes">
+                        <td>{{note.title}}</td>
+                        <td>{{note.content}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -3,6 +3,7 @@ import { MatTableDataSource, MatTable } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/users.service';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
+import { GetProductService } from 'src/app/shared/services/mydata/get-product.service';
 
 
 export interface PeriodicElement {
@@ -10,6 +11,11 @@ export interface PeriodicElement {
     position: number;
     weight: any;
     symbol: string;
+}
+
+export interface NotesData {
+    title: string;
+    content: string;
 }
 
 let ELEMENT_DATA: PeriodicElement[] = [
@@ -34,6 +40,8 @@ export class NewUserComponent implements OnInit {
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
+    notes: any = [];
+    notesData: NotesData;
 
     hello(formValues) {
         alert('New Row Added.');
@@ -47,6 +55,46 @@ export class NewUserComponent implements OnInit {
     UserForm = new FormGroup({
         name: new FormControl('', Validators.required)
     });
+
+    // notes data
+    notesForm = new FormGroup({
+        title: new FormControl(''),
+        content: new FormControl('')
+    });
+
+    get title() {
+        return this.notesForm.get('title').value;
+    }
+
+    get content() {
+        return this.notesForm.get('content').value;
+    }
+
+    onuSubmitNotesForm() {
+        if(this.notesForm.invalid){
+            alert('Form Invalid');
+        }
+        this.notesData = {
+            title: this.title,
+            content: this.content
+        }
+
+
+        // render front-end
+        this.notes.push(this.notesData);
+
+        // save in db
+        this.postsData.savePost(this.notesData).subscribe(res => {
+            console.log('response:' ,res);
+            alert('Notes added successfully!');
+        });
+
+        // clear value
+        this.notesForm.setValue({
+            title: '',
+            content: ''
+        });
+    }
 
   
     onSubmit(formValues) {
@@ -67,39 +115,17 @@ export class NewUserComponent implements OnInit {
         this.dataSource.filter = filterValue;
     }
 
-  
-    constructor(public user: UsersService) {
-        // this.testForm.setValue({
-        //     name: 'Aditya',
-        //     class: '4'
-        // });
-        this.places = [
-            {
-                imgSrc: 'assets/images/card-1.jpg',
-                place: 'Cozy 5 Stars Apartment',
-                description:
-                    'The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.',
-                charge: '$899/night',
-                location: 'Barcelona, Spain'
-            },
-            {
-                imgSrc: 'assets/images/card-2.jpg',
-                place: 'Office Studio',
-                description:
-                    'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.',
-                charge: '$1,119/night',
-                location: 'London, UK'
-            },
-            {
-                imgSrc: 'assets/images/card-3.jpg',
-                place: 'Beautiful Castle',
-                description:
-                    'The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.',
-                charge: '$459/night',
-                location: 'Milan, Italy'
-            }
-        ];
+    fetchNotesData() {
+        this.postsData.getAllPostsData().subscribe(data => {
+            this.notes = data;
+            console.log(data);
+        })
+    }
+
+   
+    constructor(public user: UsersService, private postsData: GetProductService) {
     }
     ngOnInit() {
+        this.fetchNotesData(); 
     }
 }
