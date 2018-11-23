@@ -47,7 +47,7 @@ export class NewUserComponent implements OnInit {
     notes: NotesData[] = [];
     notesData: NotesData;
     responseData: NotesData;
-    filteredObj:Array<any>;
+    filteredObj:NotesData[];
 
     hello(formValues) {
         alert('New Row Added.');
@@ -141,11 +141,11 @@ export class NewUserComponent implements OnInit {
             alert('id sent '+id);
             //const filteredObj = this.notes.filter(id);
              this.filteredObj=  this.notes.map((v, i) => v ? this.notes[i] : null)
-                 .filter(v => v === null);
+                 .filter(v => v !== null);
                  console.log('filteredObj');
                  console.log(this.filteredObj);
             console.log('selected title: '+this.filteredObj[0].title);
-            console.log('selected content: '+this.filteredObj[1].content);
+            console.log('selected content: '+this.filteredObj[0].content);
         }  else {
             console.log('nothing');
         }
