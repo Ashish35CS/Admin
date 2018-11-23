@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/users.service';
 import { formControlBinding } from '@angular/forms/src/directives/reactive_directives/form_control_directive';
 import { GetProductService } from 'src/app/shared/services/mydata/get-product.service';
+import { t } from '@angular/core/src/render3';
 
 
 export interface PeriodicElement {
@@ -13,10 +14,13 @@ export interface PeriodicElement {
     symbol: string;
 }
 
+
 export interface NotesData {
+    id:string;
     title: string;
     content: string;
 }
+
 
 let ELEMENT_DATA: PeriodicElement[] = [
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
@@ -40,8 +44,10 @@ export class NewUserComponent implements OnInit {
     displayedColumns = ['position', 'name', 'weight', 'symbol'];
     dataSource = new MatTableDataSource(ELEMENT_DATA);
     places: Array<any> = [];
-    notes: any = [];
+    notes: NotesData[] = [];
     notesData: NotesData;
+    responseData: NotesData;
+    filteredObj:Array<any>;
 
     hello(formValues) {
         alert('New Row Added.');
@@ -56,8 +62,13 @@ export class NewUserComponent implements OnInit {
         name: new FormControl('', Validators.required)
     });
 
+    // search
+    searchId = new FormControl('');
+    searchByIdResponse: NotesData[];
+
     // notes data
     notesForm = new FormGroup({
+        id: new FormControl(''),
         title: new FormControl(''),
         content: new FormControl('')
     });
@@ -69,12 +80,17 @@ export class NewUserComponent implements OnInit {
     get content() {
         return this.notesForm.get('content').value;
     }
+    get id() {
+        return this.notesForm.get('id').value;
+    }
+
 
     onuSubmitNotesForm() {
         if(this.notesForm.invalid){
             alert('Form Invalid');
         }
         this.notesData = {
+            id:this.id,
             title: this.title,
             content: this.content
         }
@@ -85,7 +101,6 @@ export class NewUserComponent implements OnInit {
 
         // save in db
         this.postsData.savePost(this.notesData).subscribe(res => {
-            console.log('response:' ,res);
             alert('Notes added successfully!');
         });
 
@@ -96,17 +111,55 @@ export class NewUserComponent implements OnInit {
         });
     }
 
+    searchById()
+    {
+        this.postsData.searchNoteById(this.searchId.value).subscribe((data: NotesData) => {
+            this.searchByIdResponse = [];
+            this.searchByIdResponse.push(data);
+            this.notes = this.searchByIdResponse;
+        });
+    }
+
+    updateById() {
+
+    }
+
+    fetchObject(obj,id){
+        if((id!=0)){
+            alert(obj.id);
+            alert('hi');
+            return obj;
+        }
+        else
+        { alert('idelse'+id);
+
+        }
+    }
+    selectnote (e, id) {
+
+        if (e.target.checked) {
+            alert('id sent '+id);
+            //const filteredObj = this.notes.filter(id);
+             this.filteredObj=  this.notes.map((v, i) => v ? this.notes[i] : null)
+                 .filter(v => v === null);
+                 console.log('filteredObj');
+                 console.log(this.filteredObj);
+            console.log('selected title: '+this.filteredObj[0].title);
+            console.log('selected content: '+this.filteredObj[1].content);
+        }  else {
+            console.log('nothing');
+        }
+       
+       }
   
     onSubmit(formValues) {
         if(formValues.status==='VALID'){
             alert('Valid Form')
-            console.log('Form Values', formValues.value.class)
-            let tempval=formValues;
+              let tempval=formValues;
             this.hello(tempval);
         }else{
             alert('Invalid Form');
         }
-        console.log('formValues', formValues);
     }
 
     applyFilter(filterValue: string) {
@@ -116,9 +169,8 @@ export class NewUserComponent implements OnInit {
     }
 
     fetchNotesData() {
-        this.postsData.getAllPostsData().subscribe(data => {
+        this.postsData.getAllPostsData().subscribe((data: NotesData[]) => {
             this.notes = data;
-            console.log(data);
         })
     }
 

@@ -41,4 +41,9 @@ export class GetProductService {
   public savePost(postData) {
     return this.http.post('/api/notes', postData, httpOptions);
   }
+
+  // get note by ID
+  public searchNoteById(id){
+    return this.http.get(`/api/notes/${id}`);
+  }
 }

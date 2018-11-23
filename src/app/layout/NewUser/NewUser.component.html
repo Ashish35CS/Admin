@@ -2,10 +2,10 @@
     <div class="form-row">
         <div class="col-md-4 mb-3">
             <label for="validationServer01">First name</label>
-            
-            <input type="text" [className]="UserForm.get('name').touched? 'form-control is-invalid':'form-control is-valid' "  id="validationServer01" placeholder="First name" value="Mark"
-                formControlName="name" required>
-            <div  *ngIf="UserForm.get('name').touched">
+
+            <input type="text" [className]="UserForm.get('name').touched? 'form-control is-invalid':'form-control is-valid' "
+                id="validationServer01" placeholder="First name" value="Mark" formControlName="name" required>
+            <div *ngIf="UserForm.get('name').touched">
                 <div>
                     Name is mandatory.
                 </div>
@@ -76,21 +76,47 @@
 
 <div class="container-fluid">
     <div class="row no-gutters">
+        <div class="col-md-12">
+            <h2>Data for particular ID</h2>
+            <div class="col-md-6 col-lg-6 text-center">
+                <input type="text" placeholder="Search by ID" [formControl]="searchId">
+            </div>
+            <div class="col-md-6">
+                <button type="button" (click)="searchById()">Search</button>
+            </div>
+            <div *ngFor="let d of searchByIdResponse">
+                Search Result for: {{d?.id}} <br>
+
+                 Title: {{d?.title}} <br>
+                 Content: {{d?.content}} <br>
+            </div>
+            
+
+        </div>
         <br>
         <div class="col-md-6 col-lg-6 center">
             <h4>Add Note:</h4>
             <br>
             <form [formGroup]="notesForm" (ngSubmit)="onuSubmitNotesForm();">
+                    <div class="form-group">
+                            <label for="id">Title</label>
+                            <input type="text" class="form-control" id="id" aria-describedby="titleHelp" placeholder="Enter id"
+                                formControlName="id">
+                        </div>
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter Title" formControlName="title">
+                    <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter Title"
+                        formControlName="title">
                 </div>
                 <br>
                 <div class="form-group">
-                        <label for="content">Content</label>
-                        <input type="text" class="form-control" id="content" aria-describedby="contentHelp" placeholder="Enter Content" formControlName="content">
+                    <label for="content">Content</label>
+                    <input type="text" class="form-control" id="content" aria-describedby="contentHelp" placeholder="Enter Content"
+                        formControlName="content">
                 </div>
-                <button type="submit" class="btn btn-primary" (onClick)="onuSubmitNotesForm();">Submit</button>
+                <button type="submit" class="btn btn-primary" (click)="onuSubmitNotesForm();">Submit</button> 
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <button type="button" class="btn btn-secondary" (click)="updateById();">Update</button>
             </form>
         </div>
         <br>
@@ -100,17 +126,20 @@
         <div class="col-md-12">
             <table class="table">
                 <thead class="thead-dark">
-                <th>Title</th>
-                <th>Content</th>
+                    <th>Select</th>
+                    <th>Title</th>
+                    <th>Content</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let note of notes">
-                        <td>{{note.title}}</td>
-                        <td>{{note.content}}</td>
+                        <td><input type="radio" name="table-row-data" class="form-check-input" (change)="selectnote($event, note?.id)"></td>
+                        <td>{{note?.title}}</td>
+                        <td>{{note?.content}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+
     </div>
 </div>
 
