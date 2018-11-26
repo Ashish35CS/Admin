@@ -98,11 +98,6 @@
             <h4>Add Note:</h4>
             <br>
             <form [formGroup]="notesForm" (ngSubmit)="onuSubmitNotesForm();">
-                    <div class="form-group">
-                            <label for="id">Title</label>
-                            <input type="text" class="form-control" id="id" aria-describedby="titleHelp" placeholder="Enter id"
-                                formControlName="id">
-                        </div>
                 <div class="form-group">
                     <label for="title">Title</label>
                     <input type="text" class="form-control" id="title" aria-describedby="titleHelp" placeholder="Enter Title"

@@ -16,7 +16,6 @@ export interface PeriodicElement {
 
 
 export interface NotesData {
-    id:string;
     title: string;
     content: string;
 }
@@ -52,7 +51,6 @@ export class NewUserComponent implements OnInit {
     hello(formValues) {
         alert('New Row Added.');
         this.count += 1;
-        console.log(formValues);
         this.dataSource.data.push({name:formValues.value.name , position: this.count,weight: formValues.value.PType,symbol: formValues.value.Price });
         this.table.renderRows();
     }
@@ -68,7 +66,6 @@ export class NewUserComponent implements OnInit {
 
     // notes data
     notesForm = new FormGroup({
-        id: new FormControl(''),
         title: new FormControl(''),
         content: new FormControl('')
     });
@@ -80,17 +77,12 @@ export class NewUserComponent implements OnInit {
     get content() {
         return this.notesForm.get('content').value;
     }
-    get id() {
-        return this.notesForm.get('id').value;
-    }
-
 
     onuSubmitNotesForm() {
         if(this.notesForm.invalid){
             alert('Form Invalid');
         }
         this.notesData = {
-            id:this.id,
             title: this.title,
             content: this.content
         }
@@ -121,31 +113,35 @@ export class NewUserComponent implements OnInit {
     }
 
     updateById() {
+        this.notesData = {
+            title: this.title,
+            content: this.content
+        }
+        console.log(this.notesData);
 
+        this.postsData.UpdateNoteById(2,this.notesData).subscribe((data: NotesData) => {
+        });
     }
 
     fetchObject(obj,id){
         if((id!=0)){
-            alert(obj.id);
-            alert('hi');
-            return obj;
+                return obj;
         }
         else
-        { alert('idelse'+id);
+        { //alert('idelse'+id);
 
         }
     }
     selectnote (e, id) {
 
         if (e.target.checked) {
-            alert('id sent '+id);
             //const filteredObj = this.notes.filter(id);
              this.filteredObj=  this.notes.map((v, i) => v ? this.notes[i] : null)
                  .filter(v => v !== null);
-                 console.log('filteredObj');
-                 console.log(this.filteredObj);
-            console.log('selected title: '+this.filteredObj[0].title);
-            console.log('selected content: '+this.filteredObj[0].content);
+               this.notesForm.setValue({
+                title: this.filteredObj[id-1].title,
+                content: this.filteredObj[id-1].content
+            });
         }  else {
             console.log('nothing');
         }

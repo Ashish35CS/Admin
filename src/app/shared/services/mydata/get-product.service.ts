@@ -46,4 +46,9 @@ export class GetProductService {
   public searchNoteById(id){
     return this.http.get(`/api/notes/${id}`);
   }
+
+  // Update note by ID
+  public UpdateNoteById(id,updateData){
+    return this.http.put(`/api/notes/${id}`, updateData, httpOptions);
+  }
 }
