@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json;charset=UTF-8',
+    'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'x-auth, content-type',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
@@ -43,12 +43,12 @@ export class GetProductService {
   }
 
   // get note by ID
-  public searchNoteById(id){
+  public searchNoteById(id) {
     return this.http.get(`/api/notes/${id}`);
   }
 
   // Update note by ID
-  public UpdateNoteById(id,updateData){
+  public UpdateNoteById(id, updateData) {
     return this.http.put(`/api/notes/${id}`, updateData, httpOptions);
   }
 }
