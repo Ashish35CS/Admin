@@ -24,7 +24,6 @@ import { AlertComponent } from './_directives';
 import { AuthGuard } from './_guards';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AlertService, AuthenticationService, UserService } from './services';
-import { HomeComponent } from './home';
 import { LoginComponent } from './login';
 import { RegisterComponent } from './register';
 
@@ -42,7 +41,6 @@ export const createTranslateLoader = (http: HttpClient) => {
 @NgModule({
     declarations: [AppComponent,
         AlertComponent,
-        HomeComponent,
         LoginComponent,
         RegisterComponent],
     imports: [
